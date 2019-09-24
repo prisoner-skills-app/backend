@@ -41,6 +41,7 @@ router.get('/:id', (req, res) => {
 
 //AUTH OPERATIONS
 
+
 //delete a center
 router.delete('/:id', (req, res) => {
     const { id } = req.params;
@@ -51,6 +52,7 @@ router.delete('/:id', (req, res) => {
             res.status(200).json({removed: center});
         })
         .catch(error => {
+            console.log(error);
             res.status(404).json({ message: 'No center with this ID exists.'})
         })
     })
@@ -59,6 +61,27 @@ router.delete('/:id', (req, res) => {
         res.status(500).json({ message: 'There was an error deleting the specified center.' })
     });
 });
+
+//delete a candidate
+// router.delete('/:id/candidates/:id', (req, res) => {
+//     const { id } = req.params;
+//     Centers.findCenterById(id)
+//     .then(center => {
+//         const id = center.id;
+//         Centers.findCandidatesByCenterId(id)
+//         .then(persons => {
+//             res.status(200).json({center, persons})
+//         })
+//         .catch(error => {
+//             console.log(error);
+//             res.status(500).json({ message: 'There was an error retrieving the candidates.' })
+//         });
+//     })
+//     .catch(error => {
+//         console.log(error);
+//         res.status(500).json({ message: 'There was an error retrieving the specified center.' })
+//     });
+// });
 
 
 
