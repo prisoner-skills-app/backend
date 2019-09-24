@@ -3,8 +3,10 @@ const db = require('../database/db-config.js');
 module.exports = {
     addCenter,
     findCenters,
+    findCompleteCenters,
     findCenterBy,
     findCenterById,
+    findCandidatesByCenterId,
     removeCenter,
     updateCenter,
 };
@@ -17,9 +19,15 @@ async function addCenter(center) {
 
 function findCenters() {
     return db('centers')
-        .where(filter)
         .select('id', 'email', 'name', 'wardenName', 'city', 'state', 'phone', 'profileComplete')
         .orderBy('id');
+};
+
+function findCompleteCenters() {
+    return db('centers')
+        .where('profileComplete', true)
+        .select('id', 'email', 'name', 'wardenName', 'city', 'state', 'phone', 'profileComplete')
+        .orderBy('id')
 };
 
 function findCenterBy(filter) {
@@ -32,6 +40,11 @@ function findCenterById(id) {
     return db('centers')
         .where({ id })
         .first();
+};
+
+function findCandidatesByCenterId(id) {
+    return db('candidates')
+        .where({ centerId: id });
 };
 
 function removeCenter(id) {
