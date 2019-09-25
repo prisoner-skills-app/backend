@@ -40,10 +40,12 @@ router.get('/:id', (req, res) => {
 
 //AUTH OPERATIONS
 //update a center
-
+router.put('/:id/profile', restricted, (req, res) => {
+    const { id } = req.params;
+})
 
 //delete a center
-router.delete('/:id', (req, res) => {
+router.delete('/:id', restricted, (req, res) => {
     const { id } = req.params;
     Centers.findCenterById(id)
     .then(center => {
@@ -63,7 +65,7 @@ router.delete('/:id', (req, res) => {
 });
 
 //add a new candidate
-router.post('/:id/candidates', (req, res) => {
+router.post('/:id/candidates', restricted, (req, res) => {
     const newCandidate = req.body;
     const { id } = req.params;
 
@@ -94,7 +96,7 @@ router.post('/:id/candidates', (req, res) => {
 //update a candidate
 
 //delete a candidate
-router.delete('/:centId/candidates/:candId', (req, res) => {
+router.delete('/:centId/candidates/:candId', restricted, (req, res) => {
     const centId = req.params.centId;
     const candId = req.params.candId;
     Candidates.findCandidateById(candId)
