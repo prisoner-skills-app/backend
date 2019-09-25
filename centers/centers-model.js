@@ -58,5 +58,5 @@ function updateCenter(id, changes) {
     return db('centers')
         .where({ id })
         .update(changes)
-        .then(() => findCenterById({id}));
+        .then(() => findCenterById(id));
 };

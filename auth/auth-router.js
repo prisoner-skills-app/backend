@@ -5,34 +5,15 @@ const jwt = require('jsonwebtoken');
 const Centers = require('../centers/centers-model.js');
 const secrets = require('../config/secrets.js');
 
-//  //Original Register Function
-// router.post('/register', (req, res) => {
-//     let admin = req.body;
-//     //hash password
-//     const hash = bcrypt.hashSync(admin.password, 12);
-//     admin.password = hash;
-//     console.log(admin);
-
-//     Centers.addCenter(admin)
-//         .then(saved => {
-//             res.status(201).json(saved);
-//         })
-//         .catch(error => {
-//             console.log(error)
-//             res.status(500).json({ message: 'There was a problem registering the admin.' })
-//         });
-// });
-
 router.post('/register', (req, res) => {
     let admin = req.body;
-    //hash password
     const hash = bcrypt.hashSync(admin.password, 12);
     admin.password = hash;
-    console.log(admin);
+    //console.log(admin);
 
     Centers.addCenter(admin)
         .then(savedAdmin => {
-            console.log('saved admin:', savedAdmin);
+            //console.log('saved admin:', savedAdmin);
             if (savedAdmin) {
                 const token = generateToken(savedAdmin)
                 res.status(200).json({ 
