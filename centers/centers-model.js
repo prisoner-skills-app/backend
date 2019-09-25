@@ -39,6 +39,7 @@ function findCenterBy(filter) {
 function findCenterById(id) {
     return db('centers')
         .where({ id })
+        .select('id', 'email', 'name', 'wardenName', 'city', 'state', 'phone', 'profileComplete')
         .first();
 };
 

@@ -1,11 +1,20 @@
 const db = require('../database/db-config.js');
 
 module.exports = {
-    //addCandidate,
+    addCandidate,
     findCandidates,
     findCandidateById,
     removeCandidate,
     updateCandidate,
+};
+
+function addCandidate(person, centerId) {
+    return db('candidates')
+        .insert({'centerId': centerId, ...person})
+        .then(([id]) => {
+            console.log('from the model', id)
+            return findCandidateById(id);
+        });
 };
 
 function findCandidates() {
