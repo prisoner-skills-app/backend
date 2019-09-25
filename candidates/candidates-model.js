@@ -12,7 +12,6 @@ function addCandidate(person, centerId) {
     return db('candidates')
         .insert({'centerId': centerId, ...person}, 'id')
         .then(([id]) => {
-            console.log('from the model', id)
             return findCandidateById(id);
         });
 };
@@ -38,5 +37,5 @@ function updateCandidate(id, changes) {
     return db('candidates')
         .where({ id })
         .update(changes)
-        .then(() => findCandidateById({id}));
+        .then(() => findCandidateById(id));
 };
