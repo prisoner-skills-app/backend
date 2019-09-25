@@ -12,21 +12,21 @@ module.exports = {
 };
 
 async function addCenter(center) {
-    const [id] = await db('centers').insert(center);
+    const [id] = await db('centers').insert(center, 'id');
 
     return findCenterById(id);
 };
 
 function findCenters() {
     return db('centers')
-        .select('id', 'email', 'name', 'wardenName', 'city', 'state', 'phone', 'profileComplete')
+        .select('id', 'email', 'name', 'city', 'state', 'phone', 'profileComplete')
         .orderBy('id');
 };
 
 function findCompleteCenters() {
     return db('centers')
         .where('profileComplete', true)
-        .select('id', 'email', 'name', 'wardenName', 'city', 'state', 'phone', 'profileComplete')
+        .select('id', 'email', 'name', 'city', 'state', 'phone', 'profileComplete')
         .orderBy('id')
 };
 
@@ -39,7 +39,7 @@ function findCenterBy(filter) {
 function findCenterById(id) {
     return db('centers')
         .where({ id })
-        .select('id', 'email', 'name', 'wardenName', 'city', 'state', 'phone', 'profileComplete')
+        .select('id', 'email', 'name', 'city', 'state', 'phone', 'profileComplete')
         .first();
 };
 
