@@ -42,7 +42,24 @@ router.get('/:id', (req, res) => {
 //update a center
 router.put('/:id/profile', restricted, (req, res) => {
     const { id } = req.params;
-})
+    const changes = {
+        profileComplete: true,
+        ...req.body
+    }
+    Centers.updateCenter(id, changes)
+        .then(updated => {
+            //console.log(updated);
+            if (updated) {
+                res.status(200).json(updated)
+            } else {
+                res.status(404).json({ message: 'No center with this ID exists.' })
+            }  
+        })
+        .catch(error => {
+            console.log(error);
+            res.status(500).json({ message: 'There was an error updating the specified center.' })
+        });
+});
 
 //delete a center
 router.delete('/:id', restricted, (req, res) => {
@@ -72,9 +89,9 @@ router.post('/:id/candidates', restricted, (req, res) => {
     Centers.findCenterById(id)
     .then(center => {
         if (center) {
-            console.log('center to add candidate to:', center);
-            console.log('candidate to add:', newCandidate);
-            console.log('center id:', id);
+            //console.log('center to add candidate to:', center);
+            //console.log('candidate to add:', newCandidate);
+            //console.log('center id:', id);
             Candidates.addCandidate(newCandidate, id)
             .then(candidate => {
                 res.status(201).json(candidate);
