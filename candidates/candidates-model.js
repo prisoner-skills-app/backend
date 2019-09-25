@@ -10,7 +10,7 @@ module.exports = {
 
 function addCandidate(person, centerId) {
     return db('candidates')
-        .insert({'centerId': centerId, ...person})
+        .insert({'centerId': centerId, ...person}, 'id')
         .then(([id]) => {
             console.log('from the model', id)
             return findCandidateById(id);

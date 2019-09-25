@@ -10,7 +10,6 @@ exports.up = function(knex) {
                 .notNullable();
             tbl.string('name')
                 .unique();
-            tbl.string('wardenName', 128);
             tbl.string('city', 255);
             tbl.string('state', 128);
             tbl.string('phone', 20);
@@ -33,7 +32,7 @@ exports.up = function(knex) {
             tbl.string('skills', 500);
             tbl.string('description', 1000);
             tbl.string('education', 255);
-            tbl.date('paroleDate');
+            tbl.string('paroleDate', 100);
         });
 };
 
